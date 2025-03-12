@@ -65,12 +65,12 @@ class MainRunner:
             print(f"\n--- Training {d}D model ---")
             X_train, X_test, y_train, y_test = self.data_generator(dim=d, n_samples=10)
             # Normalize the data (z-score normalization)
-            X_train_norm, X_test_norm, y_train_norm, y_test_norm, norm_params = self.normalizer(
-                X_train, X_test, y_train, y_test
+            X_train_norm, X_test_norm, norm_params = self.normalizer(
+                X_train, X_test
             )
             # Train the GP model and evaluate using MSE, NMSE, MNLP
             model, metrics = self.trainer.train(
-                X_train_norm, y_train_norm, X_test_norm, y_test_norm, d
+                X_train_norm, y_train, X_test_norm, y_test, d
             )
             
             print(f"{d}D Metrics:")
@@ -81,20 +81,24 @@ class MainRunner:
             # Visualize only for 1D and 2D cases
 
             if d == 1:
-                self.visualizer.visualize_1d(model, X_train_norm, y_train_norm)
+                # Unpack the min and max from norm_params
+                X_min = norm_params['X_min']
+                X_max = norm_params['X_max']
+                
+                # Pass them to the visualizer
+                self.visualizer.visualize_1d(model, X_train_norm, y_train, X_min, X_max)
+                
             elif d == 2:
-                self.visualizer.visualize_2d(model, X_train_norm, y_train_norm)
+                # Unpack the min and max from norm_params
+                X_min = norm_params['X_min']
+                X_max = norm_params['X_max']
+                
+                self.visualizer.visualize_2d(model, X_train_norm, y_train, X_min, X_max)
             results[d] = metrics
             
         return results
 
-# # scale back at the end.
 
-# # noise variance is not working right, they should collasp
-# # 2d should be generate
-# # make sure y to based on scaled (-2 to 2 ) 
-
-# # LBFGS optimizer 
 
 # if __name__ == "__main__":
 #     MainRunner.main()
