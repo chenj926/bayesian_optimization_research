@@ -4,10 +4,12 @@ import gpytorch
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
+import time
 
 from function import FunctionUtils
 
-def generate_nd_data(dim: int, n_samples: int = 10, noise_level: float = 1e-6, test_size: float = 0.2, random_state: int = 42):
+def generate_nd_data(dim: int, n_samples: int = 10, noise_level: float = 1e-6, 
+                     test_size: float = 0.2, random_state: int = None):
     """
     Generates n-dimensional data for regression using random uniform sampling
     for all dimensions to avoid too regular grid spacing.
@@ -24,7 +26,15 @@ def generate_nd_data(dim: int, n_samples: int = 10, noise_level: float = 1e-6, t
     """
     
     # Use random uniform sampling for all dimensions
-    torch.manual_seed(random_state)
+    current_seed = random_state
+
+    if random_state is None:
+        # Generate a seed based on current time if None is passed for more randomness
+        # This helps ensure torch gets a new seed if None is explicitly passed
+        current_seed = int(time.time() * 1000) % (2**32)
+
+    torch.manual_seed(current_seed)
+
     X = torch.rand(n_samples, dim) * 4 - 2  # Scale to [-2, 2]
     
     # Compute the target variable `y` using the Rosenbrock function
