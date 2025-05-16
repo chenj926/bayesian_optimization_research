@@ -1,17 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import math
 import torch
 import gpytorch
 from matplotlib import pyplot as plt
-
-
-# In[ ]:
-
 
 class FunctionUtils:
     # function
@@ -48,10 +38,3 @@ class FunctionUtils:
             x = x.unsqueeze(0)
         dim = x.size(1)
         return A * dim + torch.sum(x**2 - A * torch.cos(2 * math.pi * x), dim=1)
-
-
-# In[ ]:
-
-
-# get_ipython().system('jupyter nbconvert --to script function.ipynb')
-

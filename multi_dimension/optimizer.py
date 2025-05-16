@@ -1,16 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import torch
 
-
-# In[3]:
-
-
-# Update the OptimizerHandler class to use LBFGS instead of Adam
 class OptimizerHandler:
     def __init__(self, model, optimizer_name="LBFGS", lr=0.01):
         self.model = model
@@ -50,10 +39,3 @@ class OptimizerHandler:
             return None # Or re-evaluate loss if necessary, but training loop handles it
         else:
             raise ValueError(f"Optimization step not defined for optimizer: {self.optimizer_name}")
-
-
-# In[ ]:
-
-
-# get_ipython().system('jupyter nbconvert --to script optimizer.ipynb')
-

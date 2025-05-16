@@ -1,26 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import math
 import torch
 import gpytorch
 import nbimporter
 from matplotlib import pyplot as plt
-
-
-# In[4]:
-
-
 from data import generate_nd_data
 # from function import FunctionUtils
 from nd_model import ExactGPModel
-
-
-# In[5]:
-
 
 class GPTrainer:
   def __init__(self, likelihood_class, optimizer_handler_class): # Pass classes
@@ -92,10 +77,3 @@ class GPTrainer:
           'MNLP': mnlp.item()
       }
       return model, metrics
-
-
-# In[ ]:
-
-
-# get_ipython().system('jupyter nbconvert --to script training.ipynb')
-

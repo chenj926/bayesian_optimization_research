@@ -1,17 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import torch, gpytorch
 import matplotlib.pyplot as plt
 
-
-# In[3]:
-
-# normalize back the data when ploting
-# Example of creating a Visualizer class to match your object-oriented design
 class Visualizer:
     def visualize_1d(self, model, X_train_norm, y_train_orig, X_min_norm, X_max_norm, y_norm_params):
         
@@ -117,10 +106,3 @@ class Visualizer:
         plt.legend()
         plt.grid(True, linestyle='--', alpha=0.7)
         plt.show()
-
-
-# In[ ]:
-
-
-# get_ipython().system('jupyter nbconvert --to script visualizer.ipynb')
-
